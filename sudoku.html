@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Playground</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <div class="navBar">
+        <a href="index.html">Home</a>
+        <a href="html/aboutme.html">About Me</a>
+        <a href="html/resume.html">Resume</a>
+        <a href="https://www.github.com/acelwell">Projects</a>
+        <a href="html/visuals.html">Visuals Algs</a>
+        <a href="html/sudoku.html">Sudoku Checker</a>
+    </div>
+
+    <div class="selectionButtons">
+        <div>
+            <h2>STANDARD</h2>
+            <div class="standard">
+                
+                <div>
+                    <input type="checkbox" name="rows" id="rows" checked> <label for="rows"> Rows </label>
+                </div>
+    
+                <div>
+                    <input type="checkbox" name="columns" id="columns" checked> <label for="columns"> Columns </label>
+                </div>
+                
+                <div>
+                    <input type="checkbox" name="boxes" id="boxes" checked> <label for="boxes"> Boxes </label>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <div class="ns">
+            <h2>NON-STANDARD</h2>
+            <div class="non-standard">
+                <div class="inner-non-standard">
+                    <input type="checkbox" name="knightsMove" id="knightsMove"> 
+                    <label for="knightsMove"> Knight Move </label>
+
+                </div>
+
+                <div class="inner-non-standard">
+                    <input type="checkbox" name="kingsMove" id="kingsMove"> 
+                    <label for="kingsMove"> Kings Move </label>
+
+                </div>
+
+                <div class="inner-non-standard">
+                    <input type="checkbox" name="cross" id="cross"> 
+                    <label for="cross"> Cross </label>
+                </div>
+                    
+
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div class="start-reset">
+        <button class="startButton" type="button" onclick="validSudoku()">
+            Start
+        </button>
+
+        <button class="resetButton" type="button" onclick="reset()">
+            Reset
+        </button>
+    </div>
+
+
+    <div class="firstBoard" id="foo" name='d'>
+    </div>
+
+    <div class="secondBoard"></div>
+
+
+
+
+
+
+
+
+    <script src="./sudoku.js"></script>
+    
+</body>
+</html>
