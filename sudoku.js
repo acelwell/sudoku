@@ -5,6 +5,8 @@ let shortDelay = 17;
 let delay = 77;
 let longDelay = 200;
 
+
+// a valid sudoku board for normal rules
 let r1 = "586374912";
 let r2 = "137952864";
 let r3 = "249816573";
@@ -15,21 +17,10 @@ let r7 = "954237681";
 let r8 = "721468359";
 let r9 = "368195427";
 
-// valid for all possibilites
-
-
-// let r1 = "556374912";
-// let r2 = "137952864";
-// let r3 = "249816573";
-// let r4 = "872543196";
-// let r5 = "693781245";
-// let r6 = "415629738";
-// let r7 = "954237681";
-// let r8 = "721468359";
-// let r9 = "368195427";
-
+// set the rows of the board in an array for easier access
 let rows = [r1, r2, r3, r4, r5, r6, r7, r8, r9]
 
+// 2D array to keep track of what color to turn the board after the program runs
 let colorBoard = [
     [1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1],
@@ -42,6 +33,7 @@ let colorBoard = [
     [1,1,1,1,1,1,1,1,1]
 ]
 
+// set all the values of the const board
 function initializeConstBoard ()
 {
     for(let i = 0; i < 9; i++)
@@ -62,6 +54,7 @@ function initializeConstBoard ()
     console.log("initialized board");
 }
 
+// main function to run sudoku checks
 async function validSudoku()
 {
     if(document.getElementById("rows").checked == true)
@@ -95,6 +88,7 @@ async function validSudoku()
     
 }
 
+// checks all the rows to see if they are valid
 async function validRows()
 {
     
@@ -113,13 +107,11 @@ async function validRows()
                 rowHashSet.add(constBoard[i][k]);
             }
             await sleep(delay);
-            // console.log("why arent we coloring??");
             
         }
 
         if(rowHashSet.size != 9)
         {
-            // console.log("not a valid sudoku");
             valid = false;
             colorRow(i, "red");
             updateColorBoardRow(i, 0);
@@ -136,6 +128,7 @@ async function validRows()
     return valid;
 }
 
+// checks all the cols to see if they are valid
 async function validCols()
 {
     let valid = true;
@@ -176,6 +169,7 @@ async function validCols()
     return valid;
 }
 
+// checks the 3x3 boxes to see if they are valid
 async function validBoxes()
 {
     let valid = true;
@@ -183,11 +177,6 @@ async function validBoxes()
     {
         for(let k = 0; k < 9; k += 3)
         {
-            // if(!checkBox(i,k))
-            // {
-            //     console.log("not valid sudoku");
-            //     return false;
-            // }
             valid = valid && checkBox(i, k);
         }
     }
@@ -195,7 +184,7 @@ async function validBoxes()
     return valid;
 }
 
-
+// checks a specific 3x3 box to see if it is valid
 async function checkBox(row, col)
 {
     let valid = true;
@@ -232,6 +221,8 @@ async function checkBox(row, col)
     return valid;
 }
 
+// checking a specific cell against another cell to see if they clash
+// used for kings move and knights move
 async function checkValidNumber(num, row, col)
 {
     if(row < 0 || row > 8 || col < 0 || col > 8)
@@ -259,6 +250,7 @@ async function checkValidNumber(num, row, col)
 
 }
 
+// checks knights move constraint
 async function validKnightsMove()
 {
     let result = true;
@@ -298,6 +290,7 @@ async function validKnightsMove()
 
 }
 
+// checks kings move contraint
 async function validKingsMove()
 {
     let result = true;
@@ -333,6 +326,7 @@ async function validKingsMove()
     }
 }
 
+// checks a valid cross constraint
 async function validCross()
 {
     let valid = true;
@@ -379,14 +373,10 @@ async function validCross()
 
 }
 
+// creates and styles the board for the user to see it
 function createBoard()
 {
     let board = document.getElementById('foo');
-    // board.style.justifyContent = 'center';
-    
-
-    // console.log(board);
-    
 
     for(let i = 0; i < 9; i++)
     {
@@ -394,9 +384,7 @@ function createBoard()
         row.className = 'row';
         row.style.display = "flex";
         row.style.flexDirection = 'row';
-        row.style.justifyContent = 'center';
-        // console.log(row);
-        
+        row.style.justifyContent = 'center';        
 
         for(k = 0; k < 9; k++)
         {
@@ -424,11 +412,13 @@ function createBoard()
     
 }
 
+// forces the program to sleep for a duration so the user can see what is happening
 function sleep (ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// updates each row after a row check
 async function colorRow(row, color)
 {
     let squares = document.getElementsByClassName("row")[row].children;
@@ -441,6 +431,7 @@ async function colorRow(row, color)
 
 }
 
+// updates each col after each col check
 function colorCol(col, color)
 {
     for(let i = 0; i < 9; i++)
@@ -450,6 +441,7 @@ function colorCol(col, color)
     }
 }
 
+// updates each box after each box check
 function colorBox(startRow, startCol, color)
 {
     for(let i = startRow; i < startRow + 3; i++)
@@ -462,6 +454,7 @@ function colorBox(startRow, startCol, color)
     }
 }
 
+// updates the color of the cross
 function colorCross(color)
 {
     for(let i = 0; i < 9; i++ )
@@ -475,6 +468,7 @@ function colorCross(color)
     }
 }
 
+// updates the color board row
 function updateColorBoardRow(row, valid)
 {
     for(let i =0; i < 9; i++)
@@ -489,6 +483,7 @@ function updateColorBoardRow(row, valid)
     
 }
 
+// updates the color board col
 function updateColorBoardCol(col, valid)
 {
     for(let i = 0; i < 9; i++)
@@ -501,6 +496,7 @@ function updateColorBoardCol(col, valid)
     console.log(colorBoard);
 }
 
+// updates the color board box
 function updateColorBoardBox(startRow, startCol, valid)
 {
     for(let i = startRow; i <  startRow + 3; i++)
@@ -512,11 +508,13 @@ function updateColorBoardBox(startRow, startCol, valid)
     }
 }
 
+// updates a specific cell in the color board
 function updateColorBoardCell(row, col, valid)
 {
     colorBoard[row][col] = valid;
 }
 
+// updates the cross in the color board
 function updateColorBoardCross(valid)
 {
     for(let i = 0; i < 9; i++)
@@ -529,6 +527,7 @@ function updateColorBoardCross(valid)
     }
 }
 
+// updates the board to its final state to display to the user
 async function updateColorBoard()
 {
     for(let i = 0; i < 9; i++)
@@ -554,6 +553,7 @@ async function updateColorBoard()
     
 }
 
+// reset the board to its original state
 async function reset()
 {
     for(let i = 8; i >= 0; i--)
@@ -575,13 +575,3 @@ async function reset()
 initializeConstBoard();
 
 createBoard();
-
-// validSudoku();
-
-// validKnightsMove();
-
-// validKingsMove();
-
-// validCross();
-
-// colorRow();
